@@ -1,22 +1,22 @@
-JMcomic-Crawler-qqBot
+# JMcomic-Crawler-qqBot
 
-代码下载
+## 代码下载
 
-JMComic-Crawler-Python-master
+### JMComic-Crawler-Python-master
 
 本项目是参照了github上和csdn的两个项目进行结合得到的可以用来爬取JMcomic上的本子的qq机器人。
 
-首先下载JMComic-Crawler-Python-master，将其解压。 能看见一个setup.py，在这里打开shell，输入
+首先下载**JMComic-Crawler-Python-master**，将其解压。 能看见一个setup.py，在这里打开shell，输入
 
-pip install .
+```pip install .```
 
 下载所有的依赖,或者输入
 
-python setup.py install
+```python setup.py install```
 
 也可以。
 
-NoneBot+Lagrange
+### NoneBot+Lagrange
 
 根据你的操作系统选择你所需要的拉格朗日的压缩包
 
@@ -24,11 +24,13 @@ Releases · LagrangeDev/Lagrange.Core
 
 我这里选择的是winodws的版本
 
+![e4b6af5a3fbd9ccd6d2189ff484d161a](C:\Users\Lucky\Desktop\e4b6af5a3fbd9ccd6d2189ff484d161a.png)
+
 将其解压后运行Lagrange.OneBot.exe文件
 
 就会出现扫码登录的界面，使用你想要登录的qq小号扫码即可
 
-代码编写
+### 代码编写
 
 接下来按照JMComic-Crawler-Python-master的要求
 
@@ -36,28 +38,43 @@ Releases · LagrangeDev/Lagrange.Core
 
 以下是我的代码部分
 
+```
 # 开启jmcomic的日志输出，默认为true
+
 # 对日志有需求的可进一步参考文档 → https://jmcomic.readthedocs.io/en/latest/tutorial/11_log_custom/
+
 log: true
 
 # 配置客户端相关
+
 client:
+
   # impl: 客户端实现类，不配置默认会使用JmModuleConfig.DEFAULT_CLIENT_IMPL
+
   # 可配置:
+
   #  html - 表示网页端
+
   #  api - 表示APP端
+
   # APP端不限ip兼容性好，网页端限制ip地区但效率高
+
   impl: api
 
   # domain: 域名配置，默认是 []，表示运行时自动获取域名。
+
   # 可配置特定域名，如下：
+
   # 程序会先用第一个域名，如果第一个域名重试n次失败，则换下一个域名重试，以此类推。
+
   domain: []
 
   # retry_times: 请求失败重试次数，默认为5
+
   retry_times: 5
 
   # postman: 请求配置
+
   postman:
     meta_data:
       # proxies: 代理配置，默认是 system，表示使用系统代理。
@@ -82,6 +99,7 @@ client:
       cookies: null # 这个值是乱打的，不能用
 
 # 下载配置
+
 download:
   cache: true # 如果要下载的文件在磁盘上已存在，不用再下一遍了吧？默认为true
   image:
@@ -99,28 +117,45 @@ download:
 
 
 # 文件夹规则配置，决定图片文件存放在你的电脑上的哪个文件夹
+
 dir_rule:
+
   # base_dir: 根目录。
+
   # 此配置也支持引用环境变量，例如
+
   # base_dir: ${JM_DIR}/下载文件夹/
+
   base_dir: 
 
   # rule: 规则dsl。
+
   # 本项只建议了解编程的朋友定制，实现在这个类: jmcomic.jm_option.DirRule
+
   # 写法:
+
   # 1. 以'Bd'开头，表示根目录
+
   # 2. 文件夹每增加一层，使用 '_' 或者 '/' 区隔
+
   # 3. 用Pxxx或者Ayyy指代文件夹名，意思是 JmPhotoDetail.xxx / JmAlbumDetail的.yyy。xxx和yyy可以写什么需要看源码。
+
   # 
+
   # 下面演示如果要使用禁漫网站的默认下载方式，该怎么写:
+
   # 规则: 根目录 / 本子id / 章节序号 / 图片文件
+
   # rule: 'Bd  / Aid   / Pindex'
+
   # rule: 'Bd_Aid
 
   # 默认规则是: 根目录 / 章节标题 / 图片文件
+
   rule: Bd_Pid
 
 # 插件的配置示例
+
 plugins:
   after_album:
     - plugin: img2pdf
@@ -161,6 +196,7 @@ def download_comic(config_file_path):
     # delete_album(Id)
 
 # 调用函数
+
 if __name__ == "__main__":
     config_file_path = r"你的配置文件的路径"
     download_comic(config_file_path)
@@ -184,6 +220,7 @@ from typing import Optional
 import shutil
 
 # 定义正则表达式匹配命令
+
 Test = on_regex(pattern=r'^测试$', priority=1)
 
 @Test.handle()
@@ -192,12 +229,16 @@ async def Test_send(bot: Bot, event: GroupMessageEvent, state: T_State):
     await Test.finish(message=Message(msg))
 
 # download.py 路径
+
 DOWNLOAD_SCRIPT = r""
+
 # 定义漫画下载目录
+
 COMIC_DIR = r""
 CRAWLER_DIR = r""
 
 # 创建命令处理器
+
 jm_download = on_regex(pattern=r'^/jm\s+(\d+)$', priority=1)
 
 
@@ -322,11 +363,12 @@ async def handle_jm_download(bot: Bot, event: GroupMessageEvent, state: T_State)
             await asyncio.gather(*cleanup_tasks)
 
 
+```
 
 
 这段代码实现了下载代码到本地再接受qq群聊中的代码，再将下载下来的文件发送出去，最后再删除下载的本子，不会一直存储在电脑上，造成电脑的负担加重。
 
-配置qq机器人
+### 配置qq机器人
 
 那么最后我们只需要配置qq机器人即可了，参考NoneBot+Lagrange搭建qq机器人保姆级别教程_lagrange.onebot-CSDN博客提到的即可，写的非常详细了。
 
@@ -334,6 +376,6 @@ async def handle_jm_download(bot: Bot, event: GroupMessageEvent, state: T_State)
 
 参考github地址： https://github.com/hect0x7/JMComic-Crawler-Python
 
-Releases · LagrangeDev/Lagrange.Core
+[Releases · LagrangeDev/Lagrange.Core](https://github.com/LagrangeDev/Lagrange.Core/releases)
 
 参考csdn地址： https://blog.csdn.net/m0_66648798/article/details/141038846
