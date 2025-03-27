@@ -24,7 +24,8 @@ Releases · LagrangeDev/Lagrange.Core
 
 我这里选择的是winodws的版本
 
-![e4b6af5a3fbd9ccd6d2189ff484d161a](C:\Users\Lucky\Desktop\e4b6af5a3fbd9ccd6d2189ff484d161a.png)
+![Uploading e4b6af5a3fbd9ccd6d2189ff484d161a.png…]()
+
 
 将其解压后运行Lagrange.OneBot.exe文件
 
