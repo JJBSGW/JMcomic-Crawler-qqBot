@@ -161,16 +161,15 @@ plugins:
       kwargs:
         pdf_dir: # pdf存放文件夹
         filename_rule: Aid # pdf命名规则，A代表album, name代表使用album.name也就是本子名称
+```
 
-
-
-
-其中的文件夹存放位置需要自己确定，代码源文件也可以查看JMComic-Crawler-Python-master里面提到的官方文档
+其中的文件夹存放位置需要自己确定，代码源文件也可以查看**JMComic-Crawler-Python-master**里面提到的官方文档
 
 然后我们就需要一个用来下载本子的py文件了
 
-以下是我的下载代码
+以下是我的**下载代码**
 
+```
 import jmcomic
 import time
 
@@ -200,12 +199,11 @@ if __name__ == "__main__":
     config_file_path = r"你的配置文件的路径"
     download_comic(config_file_path)
     
+```
 
+到这里使用这个代码就**可以在本机上下载本子**了，但是我们如果想要在qq机器人上也能下载，我们需要再配置一个用来发送下载的本子的py代码
 
-
-
-到这里使用这个代码就可以在本机上下载本子了，但是我们如果想要在qq机器人上也能下载，我们需要再配置一个用来发送下载的本子的py代码
-
+```
 from nonebot import on_regex
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import GroupMessageEvent, Bot, Message, MessageSegment
@@ -364,12 +362,11 @@ async def handle_jm_download(bot: Bot, event: GroupMessageEvent, state: T_State)
 
 ```
 
-
 这段代码实现了下载代码到本地再接受qq群聊中的代码，再将下载下来的文件发送出去，最后再删除下载的本子，不会一直存储在电脑上，造成电脑的负担加重。
 
 ### 配置qq机器人
 
-那么最后我们只需要配置qq机器人即可了，参考NoneBot+Lagrange搭建qq机器人保姆级别教程_lagrange.onebot-CSDN博客提到的即可，写的非常详细了。
+那么最后我们只需要配置qq机器人即可了，参考[NoneBot+Lagrange搭建qq机器人保姆级别教程_lagrange.onebot-CSDN博客](https://blog.csdn.net/m0_66648798/article/details/141038846)博客提到的即可，写的非常详细了。
 
 如果最后发现提示qq版本过低，可以删除配置文件再从头来一次。
 
